@@ -12,14 +12,15 @@ parser = argparse.ArgumentParser(description='Daily Log App')
 
 group = parser.add_mutually_exclusive_group()
 
-group.add_argument('--init', action="store_true", dest='initialization_switch', default=False)
+group.add_argument('--init', action="store_true", dest='init_switch', default=False)
 group.add_argument('-a', action='append', dest='collection', help='Add n-many projects to your daily log. For example: -a book -a "book review" -a "journal article"')
-
+group.add_argument('-s', nargs=2, action='store', dest='swap', type=int, help='Takes two integer arguments, moving project i to location j.')
 
 results = parser.parse_args()
 
-print('initialization_switch=', results.initialization_switch)
+print('init_switch=', results.init_switch)
 print('collection=', results.collection)
+print('swap=', results.swap)
 
 # Some example json
 # {
