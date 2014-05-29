@@ -12,9 +12,14 @@ parser = argparse.ArgumentParser(description='Daily Log App')
 
 group = parser.add_mutually_exclusive_group()
 
+# Define a series of flags and assign them to a mutually exclusive group: 
+# --init stores True in var init_switch, else False
+# -a appends a string to the list in var collection. We allow multiple -a flags, e.g., -a book -a "book review" -a "journal article"
+# -s stores exactly two int arguments as list in var swap 
+
 group.add_argument('--init', action="store_true", dest='init_switch', default=False)
-group.add_argument('-a', action='append', dest='collection', help='Add n-many projects to your daily log. For example: -a book -a "book review" -a "journal article"')
-group.add_argument('-s', nargs=2, action='store', dest='swap', type=int, help='Takes two integer arguments, moving project i to location j.')
+group.add_argument('-a', action='append', dest='collection')
+group.add_argument('-s', nargs=2, action='store', dest='swap', type=int)
 
 results = parser.parse_args()
 
