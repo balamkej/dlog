@@ -10,8 +10,11 @@ except IOError as e:
 
 parser = argparse.ArgumentParser(description='Daily Log App')
 
-parser.add_argument('--init', action="store_true", dest='initialization_switch', default=False)
-parser.add_argument('-a', action='append', dest='collection', help='Add n-many projects to your daily log. For example: -a book -a "book review" -a "journal article"')
+group = parser.add_mutually_exclusive_group()
+
+group.add_argument('--init', action="store_true", dest='initialization_switch', default=False)
+group.add_argument('-a', action='append', dest='collection', help='Add n-many projects to your daily log. For example: -a book -a "book review" -a "journal article"')
+
 
 results = parser.parse_args()
 
