@@ -14,17 +14,20 @@ group = parser.add_mutually_exclusive_group()
 
 # Define a series of flags and assign them to a mutually exclusive group: 
 # --init stores True in var init_switch, else False
-# -a appends a string to the list in var collection. We allow multiple -a flags, e.g., -a book -a "book review" -a "journal article"
+# -i appends an int to the list in var increment. We allow multiple -i flags, e.g., -i book -i "book review" -i "journal article"
+# -a appends a string to the list in var project. We allow multiple -a flags, e.g., -a book -a "book review" -a "journal article"
 # -s stores exactly two int arguments as list in var swap 
 
 group.add_argument('--init', action="store_true", dest='init_switch', default=False)
-group.add_argument('-a', action='append', dest='collection')
+group.add_argument('-i', action='append', dest='increment', type=int)
+group.add_argument('-a', action='append', dest='projects')
 group.add_argument('-s', nargs=2, action='store', dest='swap', type=int)
 
 results = parser.parse_args()
 
 print('init_switch=', results.init_switch)
-print('collection=', results.collection)
+print('increment=', results.increment)
+print('projects=', results.projects)
 print('swap=', results.swap)
 
 # Some example json
