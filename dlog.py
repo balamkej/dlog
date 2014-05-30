@@ -33,8 +33,8 @@ print('swap=', results.swap)
 # Some example json
 # {
 # "projects": [
-# { "title":"JoS Review" , "count":"14" , "init_date":"2/15" }, 
-# { "title":"Mayan semantics review article" , "count":"40" , "init_date":"3/15" }, 
-# { "title":"Swarms" , "count":"3" , "init_date":"2/15" }
+# { "title":"JoS Review" , "count":14 , "init_date":"Feb 1 2014" }, 
+# { "title":"Mayan semantics review article" , "count":40 , "init_date":"Mar 15 2014" }, 
+# { "title":"Swarms" , "count":3 , "init_date":"May 15 2014" }
 # ]
 # }
