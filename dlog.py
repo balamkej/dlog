@@ -30,7 +30,7 @@ print('increment=', results.increment)
 print('projects=', results.projects)
 print('swap=', results.swap)
 
-# Touch a dlog.json file and write to it a json object
+# Touch dlog.json and write to it a json object
 def init():
 	f = open('dlog.json', 'w')
 	data = {"projects":[]}
