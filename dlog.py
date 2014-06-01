@@ -32,19 +32,19 @@ print('swap=', results.swap)
 
 # Touch dlog.json and write to it a json object
 def init():
-	f = open('dlog.json', 'w')
-	data = {"projects":[]}
-	json.dump(data, f)
-	f.close()
+    f = open('dlog.json', 'w')
+    data = {"projects":[]}
+    json.dump(data, f)
+    f.close()
 
 def add():
-	pass
+    pass
 
 def increment():
-	pass
+    pass
 
 def swap():
-	pass
+    pass
 
 # Some example json
 # {
