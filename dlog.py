@@ -6,7 +6,7 @@ try:
     with open('dlog.json') as file:
         pass
 except IOError as e:
-    print('Unable to find your Daily Log file. Use the --init flag to create a new one.')
+    print('Unable to find (or perhaps read) your Daily Log file. Use the --init flag to create a new one.')
 
 parser = argparse.ArgumentParser(description='Daily Log App')
 
@@ -29,6 +29,22 @@ print('init_switch=', results.init_switch)
 print('increment=', results.increment)
 print('projects=', results.projects)
 print('swap=', results.swap)
+
+# Touch a dlog.json file and write to it a json object
+def init():
+	f = open('dlog.json', 'w')
+	data = {"projects":[]}
+	json.dump(data, f)
+	f.close()
+
+def add():
+	pass
+
+def increment():
+	pass
+
+def swap():
+	pass
 
 # Some example json
 # {
