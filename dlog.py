@@ -74,6 +74,7 @@ def increment(index):
         json.dump(data, f)
         f.close()
 
+# Check that the two indices are in range, then switch the positions of the corresponding projects in the project list
 def swap(first, second):
     first = first - 1
     second = second - 1 # Shift indices for Python
