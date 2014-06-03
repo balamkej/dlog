@@ -37,14 +37,31 @@ def init():
     json.dump(data, f)
     f.close()
 
-def add():
-    pass
+# Check that var title is not a title in the daily log, else add it.
+def add(title):
+    f = open('dlog.json', 'r')
+    data = json.load(f)
+    f.close()
+
+    titles = []
+    for i in data['projects']:
+        titles.append(i['title'])
+
+    if title in titles:
+        print('You already have the project called \"%s\" in your Daily Log.' % (title))
+    else:
+        data['projects'].append({ "title":title , "count":0 })   
+        f = open('dlog.json', 'w')
+        json.dump(data, f)
+        f.close()
 
 def increment():
     pass
 
 def swap():
     pass
+
+init()
 
 # Some example json
 # {
