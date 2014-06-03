@@ -55,13 +55,27 @@ def add(title):
         json.dump(data, f)
         f.close()
 
-def increment():
-    pass
+# Check that var index for the project is in the appropriate range, then increment the corresponding counter.
+def increment(index):
+    index = index - 1 # Shift index for Python
+    f = open('dlog.json', 'r')
+    data = json.load(f)
+    f.close()
+
+    data_len = len(data['projects'])
+
+    if data_len == 0:
+        print('You don\'t have any projects to increment.')
+    elif data_len <= index or index < 0:
+        print('Index is out of range.') 
+    else:
+        data['projects'][index]['count'] = data['projects'][index]['count'] + 1 
+        f = open('dlog.json', 'w')
+        json.dump(data, f)
+        f.close()
 
 def swap():
     pass
-
-init()
 
 # Some example json
 # {
