@@ -49,8 +49,8 @@ def swap():
 # Some example json
 # {
 # "projects": [
-# { "title":"JoS Review" , "count":14 , "init_date":"Feb 1 2014" }, 
-# { "title":"Mayan semantics review article" , "count":40 , "init_date":"Mar 15 2014" }, 
-# { "title":"Swarms" , "count":3 , "init_date":"May 15 2014" }
+# { "title":"JoS Review" , "count":14 }, 
+# { "title":"Mayan semantics review article" , "count":40 }, 
+# { "title":"Swarms" , "count":3 }
 # ]
 # }
