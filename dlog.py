@@ -81,7 +81,7 @@ def swap(first, second):
     data = json.load(f)
     f.close()
 
-    data_len = len(data['projects'])    
+    data_len = len(data['projects'])
 
     if data_len == 0:
         print('You don\'t have any projects to increment.')
@@ -97,6 +97,26 @@ def swap(first, second):
         f = open('dlog.json', 'w')
         json.dump(data, f)
         f.close()
+
+# Delete project at var index
+def delete(index):
+    index = index - 1
+    f = open('dlog.json', 'r')
+    data = json.load(f)
+    f.close()
+
+    data_len = len(data['projects'])
+
+    if data_len == 0:
+        print('You don\'t have any projects to increment.')
+    elif data_len <= index or index < 0:
+        print('Your index is out of range.')
+    else:
+        del data['projects'][index]
+        f = open('dlog.json', 'w')
+        json.dump(data, f)
+        f.close()
+
 
 # Some example json
 # {
