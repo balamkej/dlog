@@ -74,8 +74,29 @@ def increment(index):
         json.dump(data, f)
         f.close()
 
-def swap():
-    pass
+def swap(first, second):
+    first = first - 1
+    second = second - 1 # Shift indices for Python
+    f = open('dlog.json', 'r')
+    data = json.load(f)
+    f.close()
+
+    data_len = len(data['projects'])    
+
+    if data_len == 0:
+        print('You don\'t have any projects to increment.')
+    elif data_len <= first or first < 0:
+        print('Your index %s is out of range.' % (first + 1))
+    elif data_len <= second or second < 0:
+        print('Your index %s is out of range.' % (second + 1))
+    else:
+        swap1 = data['projects'][first]
+        swap2 = data['projects'][second]
+        data['projects'][first] = swap2
+        data['projects'][second] = swap1
+        f = open('dlog.json', 'w')
+        json.dump(data, f)
+        f.close()
 
 # Some example json
 # {
