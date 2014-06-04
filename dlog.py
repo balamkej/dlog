@@ -7,12 +7,6 @@ jsonfile = os.path.join(path, 'dailylog.json')
 tick = '▇'
 sad = u"\u2639"
 
-try:
-    with open(jsonfile) as file:
-        pass
-except IOError as e:
-    print('Unable to find (or perhaps read) your Daily Log file. Use the --init flag to create a new one.')
-
 parser = argparse.ArgumentParser(description='Daily Log App')
 
 group = parser.add_mutually_exclusive_group()
