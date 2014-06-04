@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-import argparse, json
+import argparse, json, sys
+
+tick = '▇'
+width = 50
 
 try:
     with open('dlog.json') as file:
@@ -113,6 +116,15 @@ def delete(index):
         json.dump(data, f)
         f.close()
 
+# Print dlog graph
+def print_graph(label, title, count, step):
+    blocks = int(count / step)
+    print("{}: ".format(label), end="")
+    for i in range(blocks):
+        sys.stdout.write(tick)
+
+    print("  {} [{} days]".format(title,count))
+
 
 # If-block to call appropriate functions given command line flags.
 if results.init_switch == True:
@@ -131,8 +143,14 @@ else:
     f = open('dlog.json', 'r')
     data = json.load(f)
     f.close()
-    print(data)
-    print('Print pretty graph.')
+    m = len(data['projects'])
+    max = 0
+    for i in range(m):
+        if data['projects'][i]['count'] > max:
+            max = data['projects'][i]['count']
+    step = max / width
+    for i in range(m):
+        print_graph(i+1, data['projects'][i]['title'], data['projects'][i]['count'], step)
 
 # Some example json
 # {
