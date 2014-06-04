@@ -32,7 +32,7 @@ def init():
     json.dump(data, f)
     f.close()
 
-# Check that var title is not a title in the daily log, else add it.
+# Add title to the Daily Log unless already there
 def add(title):
     f = open('dlog.json', 'r')
     data = json.load(f)
@@ -50,7 +50,7 @@ def add(title):
         json.dump(data, f)
         f.close()
 
-# Check that var index for the project is in the appropriate range, then increment the corresponding counter.
+# Increment the project counter associated with index.
 def increment(index):
     index = index - 1 # Shift index for Python
     f = open('dlog.json', 'r')
@@ -69,7 +69,7 @@ def increment(index):
         json.dump(data, f)
         f.close()
 
-# Check that the two indices are in range, then switch the positions of the corresponding projects in the project list
+# Switch the position of two projects at the given indices
 def swap(first, second):
     first = first - 1
     second = second - 1 # Shift indices for Python
@@ -94,7 +94,7 @@ def swap(first, second):
         json.dump(data, f)
         f.close()
 
-# Delete project at var index
+# Delete project at index
 def delete(index):
     index = index - 1
     f = open('dlog.json', 'r')
@@ -114,7 +114,7 @@ def delete(index):
         f.close()
 
 
-# IF-block calls appropriate functions on command line arguments supplied by flags. Given no flags, print Daily Log graph.
+# If-block to call appropriate functions given command line flags.
 if results.init_switch == True:
     init() # Run init() if --init flag is supplied
 elif results.increment != None:
