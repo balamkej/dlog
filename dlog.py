@@ -21,7 +21,7 @@ group.add_argument('--init', action="store_true", dest='init_switch', default=Fa
 group.add_argument('-i', action='append', dest='increment', type=int)
 group.add_argument('-r', action='append', dest='reset', type=int)
 group.add_argument('-d', action='append', dest='delete', type=int)
-group.add_argument('-a', action='append', dest='projects')
+group.add_argument('-a', action='append', dest='add')
 group.add_argument('-s', nargs=2, action='store', dest='swap', type=int)
 
 results = parser.parse_args()
@@ -158,8 +158,8 @@ elif results.delete != None:
 elif results.reset != None:
     for i in results.reset:
         reset(i) # Call reset() on each index supplied by -i flag
-elif results.projects != None:
-    for i in results.projects:
+elif results.add != None:
+    for i in results.add:
         add(i) # Call add() on each index supplied by -a flag
 elif results.swap != None:
     first = results.swap[0]
