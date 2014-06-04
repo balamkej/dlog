@@ -118,12 +118,16 @@ def delete(index):
 
 # Print dlog graph
 def print_graph(label, title, count, step):
-    blocks = int(count / step)
+    if step == 0:
+        blocks = 0
+    else:
+        blocks = int(count / step)
     print("{}: ".format(label), end="")
     for i in range(blocks):
         sys.stdout.write(tick)
 
     print("  {} [{} days]".format(title,count))
+
 
 
 # If-block to call appropriate functions given command line flags.
