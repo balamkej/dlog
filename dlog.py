@@ -19,6 +19,7 @@ group = parser.add_mutually_exclusive_group()
 
 group.add_argument('--init', action="store_true", dest='init_switch', default=False)
 group.add_argument('-i', action='append', dest='increment', type=int)
+group.add_argument('-r', action='append', dest='reset', type=int)
 group.add_argument('-d', action='append', dest='delete', type=int)
 group.add_argument('-a', action='append', dest='projects')
 group.add_argument('-s', nargs=2, action='store', dest='swap', type=int)
@@ -104,11 +105,30 @@ def delete(index):
     data_len = len(data['projects'])
 
     if data_len == 0:
-        print('You don\'t have any projects to increment.')
+        print('You don\'t have any projects to delete.')
     elif data_len <= index or index < 0:
         print('Your index is out of range.')
     else:
         del data['projects'][index]
+        f = open(jsonfile, 'w')
+        json.dump(data, f)
+        f.close()
+
+# Reset project counter at index
+def reset(index):
+    index = index - 1
+    f = open(jsonfile, 'r')
+    data = json.load(f)
+    f.close()
+
+    data_len = len(data['projects'])
+
+    if data_len == 0:
+        print('You don\'t have any projects to reset.')
+    elif data_len <= index or index < 0:
+        print('Your index is out of range.')
+    else:
+        data['projects'][index]['count'] = 0
         f = open(jsonfile, 'w')
         json.dump(data, f)
         f.close()
@@ -135,6 +155,9 @@ elif results.increment != None:
 elif results.delete != None:
     for i in results.delete:
         delete(i) # Call delete() on each index supplied by -i flag
+elif results.reset != None:
+    for i in results.reset:
+        reset(i) # Call reset() on each index supplied by -i flag
 elif results.projects != None:
     for i in results.projects:
         add(i) # Call add() on each index supplied by -a flag
@@ -147,7 +170,7 @@ else:
     data = json.load(f)
     f.close()
     print("------------------------------------")
-    print("Your Daily Log")
+    print("Daily Log")
     print("------------------------------------")
     k = 1
     for i in data['projects']:
