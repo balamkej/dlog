@@ -128,6 +128,10 @@ elif results.swap != None:
     second = results.swap[1]
     swap(first,second) # Call swap() on the two argument supplied by -s flag. Note that I have to retrieve them from a list. This could be refactored.
 else:
+    f = open('dlog.json', 'r')
+    data = json.load(f)
+    f.close()
+    print(data)
     print('Print pretty graph.')
 
 # Some example json
