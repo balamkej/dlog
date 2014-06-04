@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 
-import argparse, json, sys
+import argparse, json, sys, os
 
+path = '/Users/rhenderson/Dropbox/code/dlog'
+jsonfile = os.path.join(path, 'dailylog.json')
 tick = '▇'
-width = 50
+sad = u"\u2639"
 
 try:
-    with open('dlog.json') as file:
+    with open(jsonfile) as file:
         pass
 except IOError as e:
     print('Unable to find (or perhaps read) your Daily Log file. Use the --init flag to create a new one.')
@@ -23,6 +25,7 @@ group = parser.add_mutually_exclusive_group()
 
 group.add_argument('--init', action="store_true", dest='init_switch', default=False)
 group.add_argument('-i', action='append', dest='increment', type=int)
+group.add_argument('-d', action='append', dest='delete', type=int)
 group.add_argument('-a', action='append', dest='projects')
 group.add_argument('-s', nargs=2, action='store', dest='swap', type=int)
 
@@ -30,14 +33,14 @@ results = parser.parse_args()
 
 # Touch dlog.json and write to it a json object
 def init():
-    f = open('dlog.json', 'w')
+    f = open(jsonfile, 'w')
     data = {"projects":[]}
     json.dump(data, f)
     f.close()
 
 # Add title to the Daily Log unless already there
 def add(title):
-    f = open('dlog.json', 'r')
+    f = open(jsonfile, 'r')
     data = json.load(f)
     f.close()
 
@@ -49,14 +52,14 @@ def add(title):
         print('You already have the project called \"%s\" in your Daily Log.' % (title))
     else:
         data['projects'].append({ "title":title , "count":0 })
-        f = open('dlog.json', 'w')
+        f = open(jsonfile, 'w')
         json.dump(data, f)
         f.close()
 
 # Increment the project counter associated with index.
 def increment(index):
     index = index - 1 # Shift index for Python
-    f = open('dlog.json', 'r')
+    f = open(jsonfile, 'r')
     data = json.load(f)
     f.close()
 
@@ -68,7 +71,7 @@ def increment(index):
         print('Index is out of range.')
     else:
         data['projects'][index]['count'] = data['projects'][index]['count'] + 1
-        f = open('dlog.json', 'w')
+        f = open(jsonfile, 'w')
         json.dump(data, f)
         f.close()
 
@@ -76,7 +79,7 @@ def increment(index):
 def swap(first, second):
     first = first - 1
     second = second - 1 # Shift indices for Python
-    f = open('dlog.json', 'r')
+    f = open(jsonfile, 'r')
     data = json.load(f)
     f.close()
 
@@ -93,14 +96,14 @@ def swap(first, second):
         swap2 = data['projects'][second]
         data['projects'][first] = swap2
         data['projects'][second] = swap1
-        f = open('dlog.json', 'w')
+        f = open(jsonfile, 'w')
         json.dump(data, f)
         f.close()
 
 # Delete project at index
 def delete(index):
     index = index - 1
-    f = open('dlog.json', 'r')
+    f = open(jsonfile, 'r')
     data = json.load(f)
     f.close()
 
@@ -112,19 +115,18 @@ def delete(index):
         print('Your index is out of range.')
     else:
         del data['projects'][index]
-        f = open('dlog.json', 'w')
+        f = open(jsonfile, 'w')
         json.dump(data, f)
         f.close()
 
 # Print dlog graph
-def print_graph(label, title, count, step):
-    if step == 0:
-        blocks = 0
-    else:
-        blocks = int(count / step)
+def print_graph(label, title, count):
     print("{}: ".format(label), end="")
-    for i in range(blocks):
-        sys.stdout.write(tick)
+    if count == 0:
+        sys.stdout.write(sad)
+    else:
+        for i in range(count):
+            sys.stdout.write(tick)
 
     print("  {} [{} days]".format(title,count))
 
@@ -136,6 +138,9 @@ if results.init_switch == True:
 elif results.increment != None:
     for i in results.increment:
         increment(i) # Call increment() on each index supplied by -i flag
+elif results.delete != None:
+    for i in results.delete:
+        delete(i) # Call delete() on each index supplied by -i flag
 elif results.projects != None:
     for i in results.projects:
         add(i) # Call add() on each index supplied by -a flag
@@ -144,17 +149,16 @@ elif results.swap != None:
     second = results.swap[1]
     swap(first,second) # Call swap() on the two argument supplied by -s flag. Note that I have to retrieve them from a list. This could be refactored.
 else:
-    f = open('dlog.json', 'r')
+    f = open(jsonfile, 'r')
     data = json.load(f)
     f.close()
-    m = len(data['projects'])
-    max = 0
-    for i in range(m):
-        if data['projects'][i]['count'] > max:
-            max = data['projects'][i]['count']
-    step = max / width
-    for i in range(m):
-        print_graph(i+1, data['projects'][i]['title'], data['projects'][i]['count'], step)
+    print("------------------------------------")
+    print("Your Daily Log")
+    print("------------------------------------")
+    k = 1
+    for i in data['projects']:
+        print_graph(k, i['title'], i['count'])
+        k = k+1
 
 # Some example json
 # {
