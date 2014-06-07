@@ -1,2 +1,4 @@
 dlog
 ====
+
+Most task managers are centered around, well, tasks. As a researcher, my work is often not centered around tasks, but projects often cannot be meaningfully broken down into minimal executable units. While I cannot organize my day around a series of tasks, I still have a feeling of what a good day's work looks like. Thus, what I want to track are what I'm currently thinking about, and whether, on any particular day, I did good work on any of those projects. Daily Log is a command line program to do just this. It allows me to keep track of my current projects, as well as how many "good day's work" units I've spent on them. It also allows me to display that information in graphical form in the terminal, which is where I'd rather be :)
